@@ -1,0 +1,62 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(255, 255, 185);
+}
+
+#SizeCanvas {
+    background-color: white;
+    outline: 1px solid;
+    border-radius: 3px;
+    position:static;
+    bottom: 70px;
+    left: 180px;
+}
+
+#screenCanvas {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0);
+    left: 0px;
+    top:0px;
+    height: 100%;
+    width: 100%;
+    pointer-events: none;
+}
+
+.Input {
+    position: relative;
+    bottom: 0px;
+}
+
+
+#TopBar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-color: black;
+    background-color: rgb(248, 207, 75);
+    border-style: solid;
+    border-radius: 5px;
+    height: 40px;
+    position: sticky;
+}
+
+#Icon {
+    position: relative;
+    top: 0px;
+    left: 5px;
+}
+
+#canvas {
+    position: relative;
+    top: 20px;
+    background-color: white;
+    border-style: solid;
+    border-radius: 5px;
+}
+
+#CurrentTool {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    pointer-events: none;
+}

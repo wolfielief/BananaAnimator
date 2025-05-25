@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banana Animator - Editor</title>
+    <link rel="stylesheet" href="Style.css">
+</head>
+<body>
+    <div id="TopBar"><img src="banana.png" width="30px" id="Icon"><h1>Banana Animator</h1></div>
+    <canvas id="canvas" height="288px"></canvas>
+    <br><br>
+    
+    
+    <label class="Input" style="position: relative; left: 330px">Size: </label>
+    <input id="Width" value="5" type="range" min="2" max="50" class="Input" style="position:relative; left:330px">
+    <label id="SizeLabel" style="position: relative; left: 330px">5</label>
+
+    <br>
+    <label class="Input" style="position: relative; bottom: 15px;">FPS:</label>
+    <input id="FPS" value="10" type="range" min="1" max="30" class="Input" style="position: relative; bottom: 15px;">
+    <label id="FPSLabel" style="position: relative; bottom: 15px;">10</label>
+    <br>
+    <input type="color" id="ColorWheel" class="Input" style="position: relative; bottom: 10px;">
+    <button onclick = toggleErase() id="eraseToggle" class="Input" style="position: relative; bottom: 13px;"><img src="eraser.png" width="10px"></button>
+    <br>
+    <button onclick="IncreaseFrame(-1)" class="Input" style="position: relative; bottom: 105px;">Previous Frame</button>
+    <label class="Input" id="Frame#" style="position: relative; bottom: 105px;">1</label>
+    
+    <button onclick="IncreaseFrame(1)" class="Input" style="position: relative; bottom: 105px;">Next Frame</button>
+    <button class="Input" width="20px" height="20px" onclick="play()" id="play" style="position: relative; bottom: 105px;"><img src="play-button.png" width="15px"></button>
+    
+    <button onclick = newFrame() class="Input" style="position: relative; bottom: 105px;">New Frame</button>
+    <canvas id="SizeCanvas" width="100px" height="100px" style="position:relative; left:50px; bottom:40px;"></canvas>
+    
+
+    <canvas id="screenCanvas"></canvas>
+    <img src="pen.png" id="CurrentTool">
+    <script src="Index.js"></script>
+</body>
+</html>
