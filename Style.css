@@ -3,6 +3,27 @@ body {
     background-color: rgb(255, 255, 185);
 }
 
+body button {
+    border-radius: 10px;
+    background-color: rgb(255, 195, 139);
+    padding: 5px;
+}
+
+#ColorWheel {
+    border-radius: 5px;
+    background-color: rgb(255, 195, 139);
+    padding: 1px;
+    border: 3px solid;
+}
+
+#OnionSkinningCanvas {
+    position: relative;
+    top: 20px;
+    right: 521px;
+    background-color: rgba(0, 0, 0, 0);
+    pointer-events: none;
+}
+
 #SizeCanvas {
     background-color: white;
     outline: 1px solid;
@@ -21,12 +42,6 @@ body {
     width: 100%;
     pointer-events: none;
 }
-
-.Input {
-    position: relative;
-    bottom: 0px;
-}
-
 
 #TopBar {
     display: flex;
