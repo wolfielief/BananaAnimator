@@ -1,17 +1,21 @@
 const drawingCanvas = document.getElementById("canvas");
-const ScreenCanvas = document.getElementById("screenCanvas")
-const sizeCanvas = document.getElementById("SizeCanvas")
+const ScreenCanvas = document.getElementById("screenCanvas");
+const sizeCanvas = document.getElementById("SizeCanvas");
+const onionSkinningCanvas = document.getElementById("OnionSkinningCanvas");
 var Width = window.innerWidth;
 var Height = window.innerHeight;
 drawingCanvas.width = 512;
 drawingCanvas.height = 288;
+onionSkinningCanvas.width = 512;
+onionSkinningCanvas.height = 288;
 sizeCanvas.width = 120;
 sizeCanvas.height = 120;
 
 const c = drawingCanvas.getContext("2d");
 const screenc = ScreenCanvas.getContext("2d");
+const onionSkinningC = onionSkinningCanvas.getContext("2d");
 
-var frames = [[]]
+var frames = []
 
 var isPainting = false;
 var startX;
@@ -26,6 +30,9 @@ document.getElementById("Frame#").innerHTML = CurrentFrame + 1;
 var playing = false;
 var FPS = 10;
 
+var OnionSkinningBefore;
+var OnionSkinningAfter;
+
 function play() {
     playing = !playing;
     if (playing) {
@@ -36,11 +43,32 @@ function play() {
     }
 }
 
-function newFrame() {
-    save(CurrentFrame);
-    CurrentFrame = frames.length;
+function newFrame(id) {
+    if (id===0) {
+        save(CurrentFrame);
+        CurrentFrame = frames.length;
+        load(CurrentFrame);
+        IncreaseFrame(1);
+    } else if (id===1) {
+        save(CurrentFrame)
+        save(frames.length)
+        CurrentFrame = frames.length - 1;
+        load(CurrentFrame);
+        document.getElementById("Frame#").innerHTML = CurrentFrame + 1;
+    }
+}
+
+function DeleteFrame() {
+    if (frames.length <= 1) {
+        return;
+    }
+    if (CurrentFrame == 0) {
+        return;
+    }
+    frames.splice(CurrentFrame, 1);
+    CurrentFrame = CurrentFrame - 1;
     load(CurrentFrame);
-    IncreaseFrame(1);
+    document.getElementById("Frame#").innerHTML = CurrentFrame + 1;
 }
 
 function IncreaseFrame(Incremental, Jumped=false) {
@@ -107,12 +135,12 @@ function save(frame=0) {
     frames.push(data);   
 }
 
-function load(frame=0, ClearIfNone=true) {
+function load(frame=0, ClearIfNone=true, Context=c) {
     let data = frames[frame];
     if (data) {
-        loadImage(data);
+        loadImage(data, Context);
     } else if (ClearIfNone) {
-        c.clearRect(0, 0, canvas.width, canvas.height);
+        Context.clearRect(0, 0, canvas.width, canvas.height);
     } else {
         return true;
     }
@@ -184,6 +212,60 @@ window.addEventListener("touchend", function(e) {
     EndDraw(e);
 })
 
+function GetTransparency(i) {
+    
+    if (i==1) {
+        return 0.4;
+    } else if (i==2) {
+        return 0.35;
+    } else if (i==3) {
+        return 0.3;
+    } else if (i==4) {
+        return 0.28;
+    } else if (i==5) {
+        return 0.25;
+    } else if (i==6) {
+        return 0.2;
+    } else if (i==7) {
+        return 0.15;
+    } else if (i==8) {
+        return 0.1;
+    } else if (1==9) {
+        return 0.075;
+    } else if (i>9) {
+        return 0.05
+    }
+}
+
+function UpdateOnionSkinning() {
+    var i = 1;
+    while (i <= OnionSkinningBefore) {
+        const CheckingFrame = CurrentFrame - i;
+        const url = frames[CheckingFrame];
+        if (url) {
+            const img = new Image();
+            img.src = url;
+            const alpha = GetTransparency(i);
+            onionSkinningC.globalAlpha = alpha;
+            onionSkinningC.drawImage(img, 0, 0,  onionSkinningCanvas.width, onionSkinningCanvas.height);
+        }
+        i += 1;
+    }
+    i = 1;
+    while (i <= OnionSkinningAfter) {
+        const CheckingFrame = CurrentFrame + i;
+        const url = frames[CheckingFrame];
+        if (url) {
+            const img = new Image();
+            img.src = url;
+            const alpha = 0.5;
+            onionSkinningC.globalAlpha = alpha;
+            onionSkinningC.drawImage(img, 0, 0,  onionSkinningCanvas.width, onionSkinningCanvas.height);
+        }
+        i += 1;
+    }
+}
+
 const ToolDisplay = document.getElementById("CurrentTool");
 
 function update() {
@@ -223,6 +305,15 @@ function update() {
         ToolDisplay.src = "pen.png";
     }
 
+    //Onion Skinning
+    OnionSkinningBefore = document.getElementById("OnionSkinningBefore").value;
+    OnionSkinningAfter = document.getElementById("OnionSkinningAfter").value;
+    document.getElementById("OnionSkinningBeforeLabel").innerHTML = OnionSkinningBefore;
+    document.getElementById("OnionSkinningAfterLabel").innerHTML = OnionSkinningAfter;
+    onionSkinningC.clearRect(0, 0, onionSkinningCanvas.width, onionSkinningCanvas.height);
+    if (!playing) {
+        UpdateOnionSkinning();
+    }
 }
 
 
