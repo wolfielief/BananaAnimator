@@ -9,6 +9,7 @@
 <body>
     <div id="TopBar"><img src="banana.png" width="30px" id="Icon"><h1>Banana Animator</h1></div>
     <canvas id="canvas" height="288px"></canvas>
+    <canvas id="OnionSkinningCanvas" height="288px"></canvas>
     <br><br>
     
     
@@ -23,16 +24,27 @@
     <br>
     <input type="color" id="ColorWheel" class="Input" style="position: relative; bottom: 10px;">
     <button onclick = toggleErase() id="eraseToggle" class="Input" style="position: relative; bottom: 13px;"><img src="eraser.png" width="10px"></button>
-    <br>
-    <button onclick="IncreaseFrame(-1)" class="Input" style="position: relative; bottom: 105px;">Previous Frame</button>
-    <label class="Input" id="Frame#" style="position: relative; bottom: 105px;">1</label>
+    <h4 style="position: relative; bottom: 1px;">Frames:</h4>
+    <button onclick="IncreaseFrame(-1)" class="Input" style="position: relative; bottom: 10px;">Previous Frame</button>
+    <label class="Input" id="Frame#" style="position: relative; bottom: 10px;">1</label>
     
-    <button onclick="IncreaseFrame(1)" class="Input" style="position: relative; bottom: 105px;">Next Frame</button>
+    <button onclick="IncreaseFrame(1)" class="Input" style="position: relative; bottom: 10px;">Next Frame</button>
+    <br>
+    <button onclick = newFrame(0) class="Input" style="position: relative; bottom: 105px;">New Frame</button>
+    <button onclick = newFrame(1) class="Input" style="position: relative; bottom: 105px;">Duplicate Frame</button>
+    <button onclick="DeleteFrame()" class="Input" style="position: relative; bottom: 105px;">Delete Frame</button>
+    <canvas id="SizeCanvas" width="100px" height="100px" style="position:relative; left:195px; bottom:130px;"></canvas>
+    <br><br>
     <button class="Input" width="20px" height="20px" onclick="play()" id="play" style="position: relative; bottom: 105px;"><img src="play-button.png" width="15px"></button>
     
-    <button onclick = newFrame() class="Input" style="position: relative; bottom: 105px;">New Frame</button>
-    <canvas id="SizeCanvas" width="100px" height="100px" style="position:relative; left:50px; bottom:40px;"></canvas>
-    
+    <h4 style="position: relative; bottom: 105px;">Onion Skinning:</h4>
+    <label style="position: relative; bottom: 105px;">Frames Before: </label>
+    <input style="position: relative; bottom: 105px;" id="OnionSkinningBefore" type="range" min="0" max="15" class="Input" value="0">
+    <label style="position: relative; bottom: 105px;" id="OnionSkinningBeforeLabel">0</label>
+    <br>
+    <label style="position: relative; bottom: 105px;">Frames After: </label>
+    <input style="position: relative; bottom: 105px;" id="OnionSkinningAfter" type="range" min="0" max="15" class="Input" value="0">
+    <label style="position: relative; bottom: 105px;" id="OnionSkinningAfterLabel">0</label>
 
     <canvas id="screenCanvas"></canvas>
     <img src="pen.png" id="CurrentTool">
