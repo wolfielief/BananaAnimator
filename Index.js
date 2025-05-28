@@ -33,6 +33,16 @@ var FPS = 10;
 var OnionSkinningBefore;
 var OnionSkinningAfter;
 
+function Fill(fill) {
+    if (fill == 0) {
+        c.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height);
+    } else {
+        c.beginPath();
+        c.fillStyle = document.getElementById("ColorWheel").value;
+        c.fillRect(0, 0, drawingCanvas.width, drawingCanvas.height);
+    }
+}
+
 function play() {
     playing = !playing;
     if (playing) {
